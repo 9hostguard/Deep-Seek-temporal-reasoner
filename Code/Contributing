@@ -1,0 +1,8 @@
+# Contributing
+
+We welcome absolutist, innovative contributions.
+
+- Fork, branch, and submit a PR.
+- Follow code style in `core/`.
+- Add tests for new features in `tests/`.
+- See `core/plugins/` for plugin templates and extensibility.
