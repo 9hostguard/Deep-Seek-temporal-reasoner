@@ -1,0 +1,86 @@
+# Changelog
+
+## v0.1.0
+- Initial release: modular DeepSeek-powered temporal reasoner core.
+- REST API, benchmarks, plugin system, and demo notebooks.
+
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+.pipenv/
+.poetry/
+
+# Jupyter Notebook checkpoints and metadata
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+*.nbproject
+
+# Test, coverage, and benchmarks
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.pytest_cache/
+benchmarks/__pycache__/
+
+# Data, logs, and outputs
+*.log
+*.csv
+*.dat
+*.out
+*.tsv
+data/
+logs/
+outputs/
+results/
+
+# Model files and AI artifacts
+*.pth
+*.h5
+*.ckpt
+*.pt
+*.onnx
+*.tflite
+*.pb
+models/
+artifacts/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Environment variables and secrets
+.env
+.env.*
+*.secret
+
+# Build artifacts and packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+MANIFEST
+
+# Documentation build
+docs/_build/
+docs/api/
+
