@@ -1,0 +1,21 @@
+from setuptools import setup, find_packages
+
+setup(
+    name='deepseek-temporal-reasoner',
+    version='0.1.0',
+    packages=find_packages(),
+    install_requires=[
+        'fastapi',
+        'uvicorn',
+        'deepseek',
+        'pydantic',
+        'numpy',
+        'pandas',
+        'plotly',
+        'pytest',
+        'jupyter'
+    ],
+    author='Ivan Padilla',
+    description='Absolutist, innovative 4D temporal reasoner powered by DeepSeek.',
+    license='MIT',
+)
