@@ -1,0 +1,8 @@
+# DeepSeek Temporal Reasoner — Documentation
+
+- [Architecture](architecture.md)
+- [API Reference](api_reference.md)
+- [Benchmarks](../benchmarks/)
+- [Plugins](../core/plugins/)
+
+Start innovating beyond understanding.
