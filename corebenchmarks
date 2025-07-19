@@ -1,0 +1,10 @@
+from core.temporal_reasoner import TemporalReasoner
+
+def test_reasoning():
+    reasoner = TemporalReasoner()
+    prompt = "Will renewable energy overtake fossil fuels by 2040?"
+    result = reasoner.query(prompt)
+    print("Benchmark result:", result)
+
+if __name__ == "__main__":
+    test_reasoning()
