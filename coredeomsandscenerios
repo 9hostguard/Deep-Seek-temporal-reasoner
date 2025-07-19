@@ -1,0 +1,26 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Scenario Exploration Demo\n",
+    "Explore custom scenarios with the DeepSeek Temporal Reasoner."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "metadata": {},
+   "source": [
+    "from core.temporal_reasoner import TemporalReasoner\n",
+    "reasoner = TemporalReasoner()\n",
+    "prompt = \"How can AI impact education in the next decade?\"\n",
+    "result = reasoner.query(prompt)\n",
+    "print(result)"
+   ]
+  }
+ ],
+ "metadata": {},
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
