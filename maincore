@@ -1,0 +1,12 @@
+# Main DeepSeek-powered temporal reasoning engine
+
+class TemporalReasoner:
+    def __init__(self, model=None):
+        from .plugins.deepseek_plugin import DeepSeekModel
+        self.model = model or DeepSeekModel()
+    def query(self, prompt, focus=None, self_reflect=False):
+        from .decomposition import decompose
+        parts = decompose(prompt)
+        results = {seg: self.model.reason(text) for seg, text in parts.items()}
+        # Add confidence and consistency checks, self-reflection if needed
+        return results
