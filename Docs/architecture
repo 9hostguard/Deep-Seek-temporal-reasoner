@@ -1,0 +1,8 @@
+# Architecture
+
+- **Core:** Temporal reasoning and decomposition
+- **Plugins:** DeepSeek and user-contributed models
+- **API:** FastAPI for serving insights
+- **Benchmarks/Demos:** Real-world scenarios, confidence, and consistency checks
+
+See diagrams for extensibility paths and plugin system.
