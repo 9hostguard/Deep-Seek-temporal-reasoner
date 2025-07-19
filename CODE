@@ -1,0 +1,42 @@
+code/
+├── core/
+│   ├── __init__.py
+│   ├── temporal_reasoner.py
+│   ├── decomposition.py
+│   ├── consistency.py
+│   ├── confidence.py
+│   ├── utils.py
+│   └── plugins/
+│       ├── __init__.py
+│       ├── deepseek_plugin.py
+│       └── example_plugin.py
+├── api/
+│   ├── __init__.py
+│   └── app.py
+├── demos/
+│   ├── financial_forecasting.ipynb
+│   └── scenario_exploration.ipynb
+├── benchmarks/
+│   ├── reasoning_test.py
+│   └── benchmark_data.json
+├── tests/
+│   ├── __init__.py
+│   ├── test_temporal_reasoner.py
+│   ├── test_decomposition.py
+│   └── test_plugins.py
+├── datasets/
+│   ├── scenarios.csv
+│   └── README.md
+├── docs/
+│   ├── index.md
+│   ├── architecture.md
+│   └── api_reference.md
+├── requirements.txt
+├── setup.py
+├── README.md
+├── LICENSE
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── CHANGELOG.md
+├── .gitignore
+└── .env.example
