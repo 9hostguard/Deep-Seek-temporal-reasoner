@@ -1,0 +1,69 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Financial Forecasting Demo\n",
+    "This notebook demonstrates the DeepSeek Temporal Reasoner on financial scenario forecasting."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "metadata": {},
+   "source": [
+    "from core.temporal_reasoner import TemporalReasoner\n",
+    "reasoner = TemporalReasoner()\n",
+    "prompt = \"What will the stock market look like for Tesla in 2026?\"\n",
+    "result = reasoner.query(prompt)\n",
+    "print(result)"
+   ]
+  }
+ ],
+ "metadata": {},
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
+
+
+File core demos scenario exploration
+
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Scenario Exploration Demo\n",
+    "Explore custom scenarios with the DeepSeek Temporal Reasoner."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "metadata": {},
+   "source": [
+    "from core.temporal_reasoner import TemporalReasoner\n",
+    "reasoner = TemporalReasoner()\n",
+    "prompt = \"How can AI impact education in the next decade?\"\n",
+    "result = reasoner.query(prompt)\n",
+    "print(result)"
+   ]
+  }
+ ],
+ "metadata": {},
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
+
+File core benchmarks
+
+from core.temporal_reasoner import TemporalReasoner
+
+def test_reasoning():
+    reasoner = TemporalReasoner()
+    prompt = "Will renewable energy overtake fossil fuels by 2040?"
+    result = reasoner.query(prompt)
+    print("Benchmark result:", result)
+
+if __name__ == "__main__":
+    test_reasoning()
