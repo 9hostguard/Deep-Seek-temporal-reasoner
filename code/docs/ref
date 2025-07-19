@@ -1,0 +1,11 @@
+# API Reference
+
+## POST /reason
+
+**Input:**
+- `prompt` (str): The scenario or question.
+- `focus` (str, optional): Temporal focus ('past', 'present', 'future').
+- `self_reflect` (bool, optional): Enable self-reflection.
+
+**Output:**
+- JSON object with temporal segments and their responses.
