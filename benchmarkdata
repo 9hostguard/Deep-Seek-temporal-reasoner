@@ -1,0 +1,14 @@
+[
+  {
+    "prompt": "What were the key factors in the 2008 financial crisis?",
+    "expected_focus": "past"
+  },
+  {
+    "prompt": "Describe the current state of global electric vehicle adoption.",
+    "expected_focus": "present"
+  },
+  {
+    "prompt": "Predict trends in urban transportation over the next 20 years.",
+    "expected_focus": "future"
+  }
+] 
