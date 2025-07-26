@@ -1,9 +1,0 @@
-fastapi
-uvicorn
-deepseek
-pydantic
-pytest
-jupyter
-numpy
-pandas
-plotly

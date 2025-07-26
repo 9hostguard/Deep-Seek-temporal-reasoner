@@ -1,0 +1,26 @@
+# Deep-Seek-temporal-reasoner Dependencies
+# Core web framework and API dependencies
+fastapi>=0.116.1
+uvicorn[standard]>=0.27.0
+
+# AI/ML and data processing  
+pydantic>=2.8.0
+numpy>=1.26.0
+pandas>=2.2.0
+plotly>=5.19.0
+
+# DeepSeek API (if available)
+openai>=1.30.0  # Compatible API client
+
+# Development and testing
+pytest>=8.2.0
+pytest-asyncio>=0.23.0
+
+# Optional Jupyter support for development
+jupyter>=1.0.0
+jupyterlab>=4.2.0
+
+# Additional utilities
+python-dotenv>=1.0.0
+httpx>=0.27.0
+typing-extensions>=4.12.0
