@@ -669,12 +669,12 @@ class StyleTransformer:
             intermediate_state.update(completion_result)
         
         return {
-            "transformation_id": self.current_transformation.transformation_id,
+            "transformation_id": self.current_transformation.transformation_id if self.current_transformation else None,
             "progress": progress,
-            "source_style": self.current_transformation.source_style.value,
-            "target_style": self.current_transformation.target_style.value,
+            "source_style": self.current_transformation.source_style.value if self.current_transformation else None,
+            "target_style": self.current_transformation.target_style.value if self.current_transformation else None,
             "intermediate_state": intermediate_state,
-            "estimated_completion": time.time() + (self.current_transformation.duration * (1.0 - progress))
+            "estimated_completion": time.time() + (self.current_transformation.duration * (1.0 - progress)) if self.current_transformation else 0
         }
     
     def _calculate_intermediate_state(self, progress: float) -> Dict[str, Any]:
