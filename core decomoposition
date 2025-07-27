@@ -1,7 +1,2 @@
-def decompose(prompt):
-    # Example splitting logic, replace with DeepSeek-powered chunking
-    return {
-        "past": f"{prompt} (focused on the past)",
-        "present": f"{prompt} (focused on the present)",
-        "future": f"{prompt} (focused on the future)",
-    }
+# This file has been moved to core/decomposition.py
+# Please use the new core module structure

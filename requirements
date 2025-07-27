@@ -7,3 +7,11 @@ jupyter
 numpy
 pandas
 plotly
+asyncio
+dataclasses
+enum
+datetime
+hashlib
+uuid
+math
+typing
