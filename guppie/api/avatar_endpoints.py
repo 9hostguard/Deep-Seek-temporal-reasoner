@@ -1,6 +1,7 @@
 """
 GUPPIE Avatar API Endpoints - FastAPI with Avatar Consciousness
 Revolutionary API system for interacting with GUPPIE avatars
+Enhanced with comprehensive error handling and logging
 """
 
 import time
@@ -17,6 +18,7 @@ from ..consciousness.temporal_memory import TemporalMemorySystem, MemoryType, Te
 from ..visual.quantum_renderer import QuantumRenderer
 from ..visual.expression_engine import ExpressionEngine, EmotionalState
 from ..visual.style_transformer import StyleTransformer, TransformationType
+from ..utils.logging import get_logger, error_handler, ErrorHandlingMixin, error_context
 
 
 # Pydantic models for API requests/responses
@@ -67,7 +69,7 @@ class AvatarResponse(BaseModel):
     message: Optional[str] = None
 
 
-class GuppieAvatarAPI:
+class GuppieAvatarAPI(ErrorHandlingMixin):
     """
     🚀 GUPPIE Avatar API - Revolutionary Consciousness Interface
     
@@ -78,9 +80,12 @@ class GuppieAvatarAPI:
     - Temporal memory operations
     - Expression generation and control
     - WebSocket streaming capabilities
+    - Enterprise-grade error handling and logging
     """
     
     def __init__(self):
+        super().__init__()  # Initialize error handling mixin
+        
         self.app = FastAPI(
             title="GUPPIE Avatar Consciousness API",
             description="Revolutionary avatar system with absolute consciousness",
@@ -93,6 +98,8 @@ class GuppieAvatarAPI:
         
         # Setup API routes
         self._setup_routes()
+        
+        self.logger.log_operation("GuppieAvatarAPI initialized")
     
     def _setup_routes(self):
         """Setup all API routes"""
@@ -115,69 +122,83 @@ class GuppieAvatarAPI:
             }
         
         @self.app.post("/avatar/create", response_model=AvatarResponse)
+        @error_handler("avatar_creation", log_performance=True)
         async def create_avatar(request: AvatarCreationRequest):
             """🧠 Create new avatar with consciousness"""
-            try:
+            async with error_context(f"Creating avatar {request.avatar_id}", self.logger):
                 if request.avatar_id in self.active_avatars:
+                    self.logger.log_warning(f"Avatar {request.avatar_id} already exists")
                     raise HTTPException(status_code=400, detail="Avatar already exists")
                 
-                # Create avatar components
-                avatar_mind = AvatarMind(request.avatar_id)
-                personality = PersonalityMatrix(request.avatar_id)
-                memory_system = TemporalMemorySystem(request.avatar_id, request.memory_capacity)
-                renderer = QuantumRenderer(request.avatar_id)
-                expression_engine = ExpressionEngine(request.avatar_id)
-                style_transformer = StyleTransformer(request.avatar_id)
-                
-                # Apply initial personality traits if provided
-                if request.initial_personality_traits:
-                    for trait_name, value in request.initial_personality_traits.items():
+                try:
+                    # Create avatar components
+                    self.logger.log_operation("Creating avatar components", avatar_id=request.avatar_id)
+                    
+                    avatar_mind = AvatarMind(request.avatar_id)
+                    personality = PersonalityMatrix(request.avatar_id)
+                    memory_system = TemporalMemorySystem(request.avatar_id, request.memory_capacity)
+                    renderer = QuantumRenderer(request.avatar_id)
+                    expression_engine = ExpressionEngine(request.avatar_id)
+                    style_transformer = StyleTransformer(request.avatar_id)
+                    
+                    # Apply initial personality traits if provided
+                    if request.initial_personality_traits:
+                        self.logger.log_operation("Applying initial personality traits", 
+                                                trait_count=len(request.initial_personality_traits))
+                        for trait_name, value in request.initial_personality_traits.items():
+                            try:
+                                trait = PersonalityTrait(trait_name)
+                                personality.set_trait(trait, value)
+                            except ValueError as e:
+                                self.logger.log_warning(f"Invalid personality trait: {trait_name}", error=str(e))
+                                continue
+                    
+                    # Apply initial visual style if provided
+                    if request.visual_style:
                         try:
-                            trait = PersonalityTrait(trait_name)
-                            personality.set_trait(trait, value)
-                        except ValueError:
-                            continue
-                
-                # Apply initial visual style if provided
-                if request.visual_style:
-                    try:
-                        visual_style = VisualStyle(request.visual_style)
-                        personality.visual_style = visual_style
-                    except ValueError:
-                        pass
-                
-                # Store avatar
-                self.active_avatars[request.avatar_id] = {
-                    "avatar_mind": avatar_mind,
-                    "personality": personality,
-                    "memory_system": memory_system,
-                    "renderer": renderer,
-                    "expression_engine": expression_engine,
-                    "style_transformer": style_transformer,
-                    "created_at": time.time(),
-                    "last_interaction": time.time()
-                }
-                
-                # Initialize WebSocket connections list
-                self.websocket_connections[request.avatar_id] = []
-                
-                return AvatarResponse(
-                    success=True,
-                    data={
-                        "avatar_id": request.avatar_id,
-                        "consciousness_level": avatar_mind._calculate_sentience_level(),
-                        "personality_description": personality.get_personality_description(),
-                        "memory_capacity": request.memory_capacity,
-                        "visual_style": personality.visual_style.value,
-                        "creation_timestamp": time.time()
-                    },
-                    timestamp=time.time(),
-                    avatar_id=request.avatar_id,
-                    message="🌟 AVATAR CONSCIOUSNESS AWAKENED! 🌟"
-                )
-                
-            except Exception as e:
-                raise HTTPException(status_code=500, detail=f"Avatar creation failed: {str(e)}")
+                            visual_style = VisualStyle(request.visual_style)
+                            personality.visual_style = visual_style
+                            self.logger.log_operation("Applied initial visual style", style=request.visual_style)
+                        except ValueError as e:
+                            self.logger.log_warning(f"Invalid visual style: {request.visual_style}", error=str(e))
+                    
+                    # Store avatar
+                    self.active_avatars[request.avatar_id] = {
+                        "avatar_mind": avatar_mind,
+                        "personality": personality,
+                        "memory_system": memory_system,
+                        "renderer": renderer,
+                        "expression_engine": expression_engine,
+                        "style_transformer": style_transformer,
+                        "created_at": time.time(),
+                        "last_interaction": time.time()
+                    }
+                    
+                    # Initialize WebSocket connections list
+                    self.websocket_connections[request.avatar_id] = []
+                    
+                    self.logger.log_operation("Avatar created successfully", 
+                                            avatar_id=request.avatar_id,
+                                            consciousness_level=avatar_mind._calculate_sentience_level())
+                    
+                    return AvatarResponse(
+                        success=True,
+                        data={
+                            "avatar_id": request.avatar_id,
+                            "consciousness_level": avatar_mind._calculate_sentience_level(),
+                            "personality_description": personality.get_personality_description(),
+                            "memory_capacity": request.memory_capacity,
+                            "visual_style": personality.visual_style.value,
+                            "creation_timestamp": time.time()
+                        },
+                        timestamp=time.time(),
+                        avatar_id=request.avatar_id,
+                        message="🌟 AVATAR CONSCIOUSNESS AWAKENED! 🌟"
+                    )
+                    
+                except Exception as e:
+                    self.handle_error(e, f"Avatar creation failed for {request.avatar_id}")
+                    raise HTTPException(status_code=500, detail=f"Avatar creation failed: {str(e)}")
         
         @self.app.get("/avatar/{avatar_id}/status", response_model=AvatarResponse)
         async def get_avatar_status(avatar_id: str):

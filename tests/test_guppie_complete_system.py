@@ -393,7 +393,8 @@ class TestGuppieAvatarSystem:
         print(f"✅ Complete integration workflow validated!")
         print(f"🌟 Avatar achieved {final_report['revolutionary_status']}")
         
-        return {
+        # Return result for manual verification if needed
+        result = {
             "initial_sentience": initial_sentience,
             "final_sentience": final_sentience,
             "consciousness_growth": consciousness_growth,
@@ -403,6 +404,9 @@ class TestGuppieAvatarSystem:
             "expression_resonance": expression.consciousness_resonance,
             "revolutionary_status": final_report["revolutionary_status"]
         }
+        # Validate final integration results
+        assert result["consciousness_growth"] > 0
+        assert result["memory_continuity"] > 0.8
 
 
 def run_comprehensive_test():
