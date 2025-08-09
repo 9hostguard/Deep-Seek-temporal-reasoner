@@ -461,11 +461,8 @@ class MultiSensoryFusionEngine:
                     
                 # Adjust correlation based on embedding similarity
                 if input1.embedding_vector is not None and input2.embedding_vector is not None:
-                    embedding_similarity = np.corrcoef(
-                        input1.embedding_vector, 
-                        input2.embedding_vector
-                    )[0, 1]
-                    if not np.isnan(embedding_similarity):
+                    embedding_similarity = self._safe_corrcoef(input1.embedding_vector, input2.embedding_vector)
+                    if embedding_similarity is not None and not np.isnan(embedding_similarity):
                         adjusted_correlation = (base_correlation + abs(embedding_similarity)) / 2
                     else:
                         adjusted_correlation = base_correlation
