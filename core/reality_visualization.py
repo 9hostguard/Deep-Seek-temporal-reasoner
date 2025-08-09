@@ -341,7 +341,7 @@ class RealityBendingVisualizer:
             score,
             score * np.sin(type_hash),
             score * np.cos(type_hash),
-            score * np.tan(type_hash * 0.1) if type_hash * 0.1 != 0 else score
+            score * np.tan(type_hash * 0.1) if abs((type_hash * 0.1) % np.pi - (np.pi / 2)) > 1e-3 else score
         ]
         
     def _memory_to_4d_coordinates(self, memory_component: Dict) -> List[float]:
