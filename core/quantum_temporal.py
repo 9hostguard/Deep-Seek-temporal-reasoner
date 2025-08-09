@@ -90,7 +90,13 @@ class TensorNetwork:
             "influence_strength": float(np.abs(retrocausal_state[0])) if len(retrocausal_state) > 0 else 0.0,
             "temporal_displacement": random.uniform(-100, 0),  # Years into past
             "probability": random.uniform(0.1, 0.7),
-            "quantum_correlation": float(np.abs(np.vdot(event_truncated, retro_truncated))) if min_size > 0 else 0.0
+            "quantum_correlation": (
+                float(
+                    np.dot(event_truncated.real, retro_truncated.real) /
+                    (np.linalg.norm(event_truncated.real) * np.linalg.norm(retro_truncated.real))
+                ) if (min_size > 0 and np.linalg.norm(event_truncated.real) > 0 and np.linalg.norm(retro_truncated.real) > 0)
+                else 0.0
+            )
         }
 
 
