@@ -357,7 +357,11 @@ class ReasoningAgent:
             
         # Calculate performance metrics from results
         accuracy = np.mean([r.get("accuracy", 0.5) for r in task_results])
-        speed = 1.0 / np.mean([r.get("processing_time", 1.0) for r in task_results])
+        mean_processing_time = np.mean([r.get("processing_time", 1.0) for r in task_results])
+        if mean_processing_time < 1e-8:
+            speed = 0.0  # or set to a default value, e.g., 1.0 if desired
+        else:
+            speed = 1.0 / mean_processing_time
         creativity = np.mean([r.get("creativity_score", 0.5) for r in task_results])
         consistency = 1.0 - np.std([r.get("confidence", 0.5) for r in task_results])
         adaptability = self.genome.behavior_genes["adaptability"]
